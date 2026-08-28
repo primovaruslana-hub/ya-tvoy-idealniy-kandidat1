@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Анкета твоего идеального кандидата</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #f5ebef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            padding: 16px;
+        }
+
+        .resume-card {
+            max-width: 1100px;
+            width: 100%;
+            background: #fcf6f8;
+            box-shadow: 0 20px 40px rgba(180, 120, 140, 0.12), 0 8px 16px rgba(150, 100, 120, 0.06);
+            border-radius: 36px;
+            padding: 32px 28px;
+            border: 1px solid #f0dce2;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+            border-bottom: 2px dashed #eed5dd;
+            padding-bottom: 24px;
+        }
+
+        .photo-placeholder {
+            flex-shrink: 0;
+            width: 140px;
+            height: 140px;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 4px solid #faeaf0;
+            box-shadow: 0 4px 0 #dbbac6;
+            background: #ecdbe2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #7a5f69;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .title-right {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .title-right h1 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #4d3440;
+            line-height: 1.1;
+            text-transform: uppercase;
+            border-left: 10px solid #eac2cf;
+            padding-left: 20px;
+            text-shadow: 0 2px 0 #f3dce4;
+        }
+
+        .title-right .subhead {
+            font-size: 18px;
+            font-weight: 400;
+            color: #805f6b;
+            margin-top: 4px;
+            padding-left: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-top: 6px;
+        }
+
+        .about-block {
+            grid-column: 1 / -1;
+            order: 1;
+            margin-bottom: 4px;
+        }
+        .zodiac-block { order: 2; }
+        .skills-block { order: 3; }
+        .edu-block { order: 4; }
+        .income-block {
+            order: 5;
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 700px) {
+            .info-grid { grid-template-columns: 1fr; gap: 22px; }
+            .about-block, .income-block { grid-column: 1; }
+            .header-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .title-right h1 { font-size: 34px; border-left-width: 6px; padding-left: 14px; }
+            .resume-card { padding: 20px 16px; border-radius: 28px; }
+            .photo-placeholder { width: 120px; height: 120px; }
+            .about-photos { gap: 8px; }
+            .about-photos img { width: calc(33.33% - 6px); }
+        }
+
+        .block {
+            background: #faf0f3;
+            border-radius: 26px;
+            padding: 20px 18px;
+            border: 1px solid #f0dbe2;
+            box-shadow: 0 6px 0 #e2c8d2;
+            transition: 0.1s;
+        }
+        .block:hover { transform: translateY(-2px); box-shadow: 0 10px 0 #dbbac8; }
+
+        .block-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #4d3440;
+            border-bottom: 3px dotted #efd3dd;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        /* зодиак */
+        .zodiac-item {
+            font-size: 17px;
+            font-weight: 600;
+            color: #3f2b33;
+            background: #f5e5eb;
+            padding: 10px 16px;
+            border-radius: 40px;
+            margin-bottom: 10px;
+            display: inline-block;
+            border: 1px solid #e6ccd6;
+        }
+        .zodiac-detail {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4d3440;
+            background: #fcf6f8;
+            padding: 14px 16px;
+            border-radius: 20px;
+            margin-top: 8px;
+            border-left: 6px solid #eac2cf;
+        }
+        .zodiac-detail strong { font-weight: 700; color: #3b222e; }
+
+        /* навыки */
+        .skill-list {
+            list-style: none;
+            margin-top: 2px;
+        }
+        .skill-list li {
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 0 8px 4px;
+            border-bottom: 1px dashed #e6cdd7;
+            color: #412e38;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 8px;
+        }
+        .skill-list li:last-child { border-bottom: none; }
+        .skill-list li .skill-name { font-weight: 600; color: #4d2f3c; }
+        .skill-list li .hint {
+            font-size: 13px;
+            font-weight: 400;
+            color: #936e7c;
+            background: #f5e4eb;
+            padding: 2px 14px;
+            border-radius: 40px;
+            margin-left: auto;
+            white-space: nowrap;
+            border: 1px solid #edd5df;
+        }
+
+        /* образование */
+        .edu-inner {
+            background: #f5e7ec;
+            border-radius: 24px;
+            padding: 16px 18px;
+            border: 1px solid #e9d1db;
+        }
+        .edu-inner .uni {
+            font-size: 24px;
+            font-weight: 800;
+            color: #3f2832;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+        .edu-inner .uni small {
+            font-weight: 400;
+            font-size: 17px;
+            color: #7a5b68;
+            display: block;
+            margin-top: 4px;
+            border-top: 2px dotted #e6cbd5;
+            padding-top: 8px;
+        }
+        .edu-inner .badge {
+            background: #eac2cf;
+            color: #3b2630;
+            font-weight: 700;
+            padding: 6px 20px;
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 15px;
+            border: 1px solid #dbb0be;
+        }
+        .edu-inner .red-diploma {
+            background: #fcf6f8;
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-size: 15px;
+            border: 1px solid #e6cbd5;
+            display: inline-block;
+            margin-top: 12px;
+            color: #4d3440;
+        }
+
+        /* о себе — фото в ряд */
+        .about-text {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #3f2b33;
+            background: #fcf6f8;
+            padding: 18px 22px;
+            border-radius: 24px;
+            border-left: 6px solid #eac2cf;
+        }
+        .about-photos {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .about-photos img {
+            width: calc(33.333% - 8px);
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid #f0dce2;
+            flex: 1 1 0;
+            min-width: 80px;
+        }
+        .about-text .highlight {
+            font-weight: 600;
+            color: #572e41;
+            background: #f5e2ea;
+            padding: 0 8px;
+            border-radius: 30px;
+        }
+        .about-text .passion-tag {
+            display: inline-block;
+            background: #f5e4eb;
+            padding: 2px 16px;
+            border-radius: 60px;
+            font-weight: 500;
+            color: #8f5a6b;
+            border: 1px solid #e6cbd5;
+            margin-top: 6px;
+            font-size: 15px;
+        }
+        .about-text .signature {
+            margin-top: 14px;
+            font-style: italic;
+            color: #7a5b68;
+            background: #f5e4eb;
+            padding: 6px 18px;
+            border-radius: 60px;
+            display: inline-block;
+            border: 1px solid #e6cbd5;
+            font-size: 15px;
+        }
+
+        /* справка о доходах */
+        .income-block .income-content {
+            background: #fcf6f8;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border-left: 6px solid #eac2cf;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .income-block .income-content .joke {
+            font-size: 20px;
+            font-weight: 600;
+            color: #4d2f3c;
+            background: #f5e4eb;
+            padding: 6px 24px;
+            border-radius: 60px;
+            border: 1px solid #e6cbd5;
+        }
+        .income-img-placeholder {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 12px;
+            border: 2px solid #f0dce2;
+            background: #f5e7ec;
+        }
+        .income-img-placeholder img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .sticker-note {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 14px;
+            color: #b2919c;
+            font-weight: 400;
+            border-top: 2px solid #f0dce2;
+            padding-top: 18px;
+            letter-spacing: 0.2px;
+        }
+        .sticker-note i {
+            font-style: normal;
+            background: #f5e4eb;
+            padding: 2px 16px;
+            border-radius: 60px;
+            color: #674b56;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-card">
+        <div class="header-row">
+            <div class="photo-placeholder">
+                <img src="1.jpg" alt="фото Русланы">
+            </div>
+            <div class="title-right">
+                <h1>анкета кандидата</h1>
+                <div class="subhead">
+                    <span style="background: #f5e4eb; padding: 4px 16px; border-radius: 40px; font-weight: 600;">Руслана</span> 
+                </div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="about-block block">
+                <div class="block-title">о себе</div>
+                <div class="about-text">
+                    <div class="about-photos">
+                        <img src="6.jpg" alt="фото 1">
+                        <img src="5.jpg" alt="фото 2">
+                        <img src="4.jpg" alt="фото 3">
+                    </div>
+
+                    <p style="margin-top: 12px;">
+                        <span class="passion-tag">внимание к деталям</span>
+                        <span class="passion-tag" style="margin-left: 6px;">эмпатия без наигранности</span>
+                        <span class="passion-tag" style="margin-left: 6px;">люблю неожиданные решения</span>
+                    </p>
+                    <div class="signature">
+                        "та, кто умеет слушать и слышать, а ещё — добавлять перца в повседневность"
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЗОДИАК -->
+            <div class="zodiac-block block">
+                <div class="block-title">зодиак</div>
+                <div class="zodiac-item">близнецы</div>
+                <div class="zodiac-detail">
+                    <strong>асцендент:</strong> лев <br>
+                    <span style="display:inline-block; margin-top:6px; background: #f5e4eb; padding:4px 16px; border-radius:40px; font-weight:600;">17.06.2004</span>
+                    <div style="margin-top: 10px; font-size: 15px; color:#6b4b58;">
+                        <span style="background: #f5e4eb; padding:2px 16px; border-radius:30px;">солнце в близнецах</span>
+                    </div>
+                </div>
+                <div style="margin-top: 14px; font-size: 14px; color:#7a5b68; background: #f5e4eb; padding: 6px 16px; border-radius: 40px; text-align: center; border: 1px solid #e6cbd5;">
+                    двойная натура + львиная харизма
+                </div>
+            </div>
+
+            <!-- НАВЫКИ -->
+            <div class="skills-block block">
+                <div class="block-title">навыки</div>
+                <ul class="skill-list">
+                    <li><span class="skill-name">клиентоориентированность</span> <span class="hint">глубокое понимание желаний</span></li>
+                    <li><span class="skill-name">эмпатия в деталях</span> <span class="hint">чувствую настроение</span></li>
+                    <li><span class="skill-name">искусство комплимента</span> <span class="hint">растворяю лёд</span></li>
+                    <li><span class="skill-name">визуальная интуиция</span> <span class="hint">предугадываю вкус</span></li>
+                    <li><span class="skill-name">нежность в коммуникации</span> <span class="hint">мягко, но уверенно</span></li>
+                    <li><span class="skill-name">страсть к порядку</span> <span class="hint">и к хаосу по желанию</span></li>
+                </ul>
+                <div style="margin-top: 12px; font-size: 13px; background: #f5e4eb; padding: 4px 16px; border-radius: 60px; display: inline-block; border: 1px solid #e6cbd5;">
+                    владею на уровне «интуитивного касания»
+                </div>
+            </div>
+
+            <div class="edu-block block">
+                <div class="block-title">образование</div>
+                <div class="edu-inner">
+                    <div class="uni">МБИ <span style="font-weight:300;">имени</span> СОБЧАКА</div>
+                    <div style="font-size: 20px; font-weight: 700; color: #3f2832; margin-top: 2px;">бакалавр</div>
+                    <div style="font-size: 18px; font-weight: 500; color: #6b4b58; background: #fcf6f8; display: inline-block; padding: 2px 20px; border-radius: 40px; margin: 6px 0 6px;">бизнес-информатика</div>
+                    <div class="badge">2022 – 2026</div>
+                    <div class="red-diploma">красный диплом</div>
+                </div>
+            </div>
+
+            <!-- СПРАВКА О ДОХОДАХ -->
+            <div class="income-block block">
+                <div class="block-title">справка о доходах</div>
+                <div class="income-content">
+                    <span class="joke">💸 хватит на все твои хотелки</span>
+                </div>
+                <div class="income-img-placeholder">
+                    <img src="2.jpg" alt="Справка о доходах">
+                </div>  
+            </div>  
+        </div>
+
+        <div class="sticker-note">
+            <i>анкета · 2026 · </i>
+            <span style="display: inline-block; margin-left: 16px; background: #f5e4eb; padding: 0 18px; border-radius: 60px;">🌹</span>
+        </div>
+    </div>
+</body>
+</html>
